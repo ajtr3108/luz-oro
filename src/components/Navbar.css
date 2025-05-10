@@ -1,0 +1,55 @@
+* {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar{
+    display: flex;
+    background-color: #e4d48c;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+}
+
+.navbar-item {
+    margin-right: 1rem;
+}
+
+.navbar a:hover {
+    color:#dfa142;
+}
+
+.navbar a {
+    color: black;
+    text-decoration: none;
+}
+
+.logo {
+    width: 100px;
+}
+
+.carrito {
+    width: 50px;
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 1px;
+    background-color: #ee7787;
+    color: white;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 50%; 
+    transform: translate(50%, -50%);
+    width: 20px;
+}
