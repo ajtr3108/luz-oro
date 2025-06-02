@@ -1,4 +1,5 @@
-import carrito from "../assets/logodecarrito.png";
+ import carrito from "../../../assets/logodecarrito.png";
+
 function CartWidget() {
   return (
     <div className="carrito">
