@@ -1,0 +1,22 @@
+.carrito-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 300px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  color: black;
+}
+.carrito-card ul {
+  list-style: none;
+  padding: 0;
+}
+.carrito-card li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}

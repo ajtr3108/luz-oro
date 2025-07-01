@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const keywords = {
   pulseras: ["bracelet", "pulsera"],
@@ -24,9 +25,12 @@ const CatalogoAPI = () => {
   const tipo = categoria || "todo"; 
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products/category/jewelery")
-      .then((res) => res.json())
-      .then((data) => setProductos(data));
+    const db = getFirestore();
+    const productosRef = collection(db, "productos");
+    getDocs(productosRef).then((snapshot) => {
+      const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setProductos(docs);
+    });
   }, []);
 
   const productosFiltrados = filtrarPorTipo(productos, tipo);
@@ -38,19 +42,19 @@ const CatalogoAPI = () => {
         <Link className="buttom-menu" to="/aretes">Aretes</Link>
         <Link className="buttom-menu" to="/anillos">Anillos</Link>
         <Link className="buttom-menu" to="/">Todo</Link>
-        </div>
-        <div className="card">
-    <ul>
-    {productosFiltrados.map((item) => (
-        <li key={item.id}>
-        <Link to={`/productos/${item.id}`}>{item.title}</Link>
-        <img src={item.image} alt={item.title} width={100} />
-        <p>{item.description}</p>
-        <p>${item.price}</p>
-        </li>
-    ))}
-    </ul>
-    </div>
+      </div>
+      <div className="card">
+        <ul>
+          {productosFiltrados.map((item) => (
+            <li key={item.id}>
+              <Link to={`/productos/${item.id}`}>{item.title}</Link>
+              <img src={item.image} alt={item.title} width={100} />
+              <p>{item.description}</p>
+              <p>${item.price}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

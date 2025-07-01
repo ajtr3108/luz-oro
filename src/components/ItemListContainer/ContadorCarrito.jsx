@@ -1,25 +1,16 @@
-import { useState } from "react";
+import { useContext } from 'react';
+import { CarritoContext } from "./CartWidget/Context";
 import './ContadorCarrito.css';
 
-function ContadorCarrito() {
-  const [count, setCount] = useState(0);
-
-  const handleAgregar = () => {
-    setCount(count + 1);
-  };
-
-  const handleQuitar = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
+function ContadorCarrito({ id }) {
+  const { cantidades, agregarCantidad, quitarCantidad } = useContext(CarritoContext);
+  const cantidad = cantidades[id] || 0;
 
   return (
     <div className="contador-carrito">
-      <button className="buttom-contador" onClick={handleAgregar}>+</button>
-        <p>{count}</p>
-      <button className="buttom-contador" onClick={handleQuitar} disabled={count === 0}>-</button>
-
+      <button className="buttom-contador" onClick={() => agregarCantidad(id)}>+</button>
+      <p>{cantidad}</p>
+      <button className="buttom-contador" onClick={() => quitarCantidad(id)} disabled={cantidad === 0}>-</button>
     </div>
   );
 }

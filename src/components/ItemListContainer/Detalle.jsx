@@ -35,7 +35,7 @@ function Detalle() {
             <img className="detalle-img" src={producto.image} alt={producto.title} />
             <p className="detalle-desc">{producto.description}</p>
             <h3 className="detalle-price">${producto.price}</h3>
-            <ContadorCarrito />
+            <ContadorCarrito id={producto.id}/>
         </div>
         <div>
             <CatalogoAPI />
