@@ -3,7 +3,7 @@ import { CarritoContext } from "./CartWidget/Context";
 import './CarritoCard.css';
 
 function CarritoCard() {
-  const { cantidades } = useContext(CarritoContext);
+  const { cantidades, agregarCantidad, quitarCantidad } = useContext(CarritoContext);
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
@@ -35,10 +35,11 @@ function CarritoCard() {
       <ul>
         {productos.map(producto => (
           <li key={producto.id}>
-
             <span>{producto.title}</span>
             <span> x {producto.cantidad}</span>
             <span> - ${producto.price * producto.cantidad}</span>
+            <button onClick={() => agregarCantidad(producto.id)}>+</button>
+            <button onClick={() => quitarCantidad(producto.id)} disabled={producto.cantidad === 1}>-</button>
           </li>
         ))}
       </ul>

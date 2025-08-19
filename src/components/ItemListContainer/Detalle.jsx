@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CatalogoAPI from "./CatalogoAPI";
-import ContadorCarrito from "./ContadorCarrito";
 import './Detalle.css';
+import { CarritoContext } from "./CartWidget/Context";
 
 function Detalle() {
     const { id } = useParams();
     const [producto, setProducto] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cantidad, setCantidad] = useState(1);
+    const { agregarCantidad } = useContext(CarritoContext);
 
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${id}`)
@@ -27,6 +29,12 @@ function Detalle() {
         return <h2>El producto seleccionado no existe</h2>;
     }
 
+    const handleAddToCart = () => {
+        for (let i = 0; i < cantidad; i++) {
+            agregarCantidad(producto.id);
+        }
+    };
+
     return (
       <div>
         <div className="detalle-container">
@@ -35,7 +43,12 @@ function Detalle() {
             <img className="detalle-img" src={producto.image} alt={producto.title} />
             <p className="detalle-desc">{producto.description}</p>
             <h3 className="detalle-price">${producto.price}</h3>
-            <ContadorCarrito id={producto.id}/>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <button onClick={() => setCantidad(c => Math.max(1, c - 1))}>-</button>
+                <span>{cantidad}</span>
+                <button onClick={() => setCantidad(c => c + 1)}>+</button>
+                <button onClick={handleAddToCart}>Añadir al carrito</button>
+            </div>
         </div>
         <div>
             <CatalogoAPI />
